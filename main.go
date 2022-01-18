@@ -9,9 +9,8 @@ import (
 func main() {
 	myquote := `Amateurs practice until they get it right.
 Proffesionals practice until they cant't get it wrong.`
-	// - write quotes.txt to hard disk
-	// - return a file handler for the file
-	fileHandler,_:=os.Create("quotes.txt")
+	
+	fileHandler,_:=os.OpenFile("quotes.txt",os.O_RDWR|os.O_APPEND|os.O_CREATE,0666)
 
 	// after exit of main close the file
 	defer fileHandler.Close()
@@ -22,6 +21,9 @@ Proffesionals practice until they cant't get it wrong.`
 	// our intention is through the belt to 
 	// move our data (myqote) to file
 	fmt.Fprintln(myWriterBelt,myquote)
+	
+	// write dashes
+	fmt.Fprintln(myWriterBelt,"-------------")
 
 	// move the data to file
 	myWriterBelt.Flush()
